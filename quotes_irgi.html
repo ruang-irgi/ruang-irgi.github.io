@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+	function quotes(){
+		let jenisQuote = document.getElementById('jenis').value;
+		let banyakQuote = (jenisQuote == 'q_love.txt') ? 999 : 283;
+		
+		fetch(`http://ruang-irgi.github.io/${jenisQuote}`).then(response => response.text()).then(data => {
+			let lines = data.split('\n');
+			let x = Math.floor(Math.random() * banyakQuote);
+			document.getElementById('quote').innerHTML = lines[x];
+		}).catch(error => {alert('Ado error dek')});
+		setTimeout(tlTeks, 1000);
+	}
+	async function tlTeks(){
+		const teks = document.getElementById('quote').innerHTML;
+		const bahasa = 'id';
+		const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(teks)}&langpair=en|${bahasa}`);
+		const data = await response.json();
+		
+		if (data && data.responseData && data.responseData.translatedText){
+			document.getElementById('translatedText').innerText = data.responseData.translatedText;
+		} else {
+			document.getElementById('translatedText').innerText = 'Gagal';
+		}
+	}
+</script>
+
+</head>
+<body>
+	<h1><center>Quotes</center></h1>
+	<div>Pilih jenis:
+		<select id='jenis'>
+			<option value='q_love.txt'>Cinta</option>
+			<option value='q_motiv.txt'>Motivasi</option>
+		</select>
+	</div><br>
+	<button style="font-size: 20px; height: 30px; width: 100px" onclick='quotes()'>Gas</button>
+	<span style='padding-left: 20px'>(Proses penerjemahan &plusmn 1 detik)</span>
+	<div>
+		<center>
+			<h3 id='quote'></h3>
+			<h3 id='translatedText'></h3>
+		</center>
+	</div>
+</body>
+</html>
