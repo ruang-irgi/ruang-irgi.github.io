@@ -8,7 +8,7 @@
 		let jenisQuote = document.getElementById('jenis').value;
 		let banyakQuote = (jenisQuote == 'q_love.txt') ? 999 : 283;
 		
-		fetch(`http://ruang-irgi.github.io/${jenisQuote}`).then(response => response.text()).then(data => {
+		fetch(`https://ruang-irgi.github.io/${jenisQuote}`).then(response => response.text()).then(data => {
 			let lines = data.split('\n');
 			let x = Math.floor(Math.random() * banyakQuote);
 			document.getElementById('quote').innerHTML = lines[x];
