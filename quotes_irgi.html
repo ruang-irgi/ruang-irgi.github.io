@@ -4,6 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
+	let gantiBg = true, noBg1 = false;
+	function bg(){
+		if (gantiBg && !noBg1) {
+			document.getElementById('body1').style.backgroundImage = "url('https://i0.wp.com/winpoin.com/wp-content/uploads/2015/08/wallpapermotivasi_10.jpeg')";
+			document.getElementById('body1').style.color = 'red';
+			gantiBg = false;
+		} else if (!gantiBg && !noBg1) {
+			document.getElementById('body1').style.backgroundImage = "url('https://png.pngtree.com/background/20210709/original/pngtree-red-stereo-border-love-valentines-day-background-picture-image_905497.jpg')";
+			document.getElementById('body1').style.color = 'black';
+			gantiBg = true;
+		}
+	}
+	function noBG(){
+			document.getElementById('body1').style.backgroundImage = "none";
+			document.getElementById('body1').style.color = 'black';
+			noBg1 = true;
+			document.getElementById('hapus').style.display = 'none';
+	}
 	async function quotes(){
 		let jenisQuote = document.getElementById('jenis').value;
 		let banyakQuote = (jenisQuote == 'q_love.txt') ? 999 : 283;
@@ -31,23 +49,26 @@
 <style>
 body {
 	background-image: url('https://png.pngtree.com/background/20210709/original/pngtree-red-stereo-border-love-valentines-day-background-picture-image_905497.jpg');
-	background-size: 1000px 1500px;
+	background-size: cover;
 	background-position: 55% 20%;
 	background-attachment: fixed;
 }
 #quote, #translatedText {
 	text-align: center;
 	width: 55%;
+	font-family: monospace;
+	font-size: 20px;
 }
 </style>
 </head>
 <body id='body1'>
 	<h1><center>Quotes</center></h1>
 	<div>Pilih jenis:
-		<select id='jenis'>
+		<select id='jenis' onchange='bg()'>
 			<option value='q_love.txt'>Cinta</option>
 			<option value='q_motiv.txt'>Motivasi</option>
 		</select>
+		<button id='hapus' onclick='noBG()'>Hapus background</button>
 	</div><br>
 	<button style="font-size: 20px; height: 30px; width: 100px" onclick='quotes()'>Gas</button>
 	<span style='padding-left: 20px'>(Proses penerjemahan &plusmn 1 detik)</span>
