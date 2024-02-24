@@ -8,10 +8,12 @@
 	function bg(){
 		if (gantiBg && !noBg1) {
 			document.getElementById('body1').style.backgroundImage = "url('https://i0.wp.com/winpoin.com/wp-content/uploads/2015/08/wallpapermotivasi_10.jpeg')";
+			document.getElementById('body1').style.backgroundSize = '200% 140%'
 			document.getElementById('body1').style.color = 'red';
 			gantiBg = false;
 		} else if (!gantiBg && !noBg1) {
 			document.getElementById('body1').style.backgroundImage = "url('https://png.pngtree.com/background/20210709/original/pngtree-red-stereo-border-love-valentines-day-background-picture-image_905497.jpg')";
+			document.getElementById('body1').style.backgroundSize = '100% 120%';
 			document.getElementById('body1').style.color = 'black';
 			gantiBg = true;
 		}
@@ -49,7 +51,7 @@
 <style>
 body {
 	background-image: url('https://png.pngtree.com/background/20210709/original/pngtree-red-stereo-border-love-valentines-day-background-picture-image_905497.jpg');
-	background-size: cover;
+	background-size: 100% 120%;
 	background-position: 55% 20%;
 	background-attachment: fixed;
 }
