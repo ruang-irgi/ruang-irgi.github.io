@@ -4,23 +4,39 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Ruang Irgi</title>
 <style>
+	a.fitur:link, a.fitur:visited {
+		color: rgb(10,230,100);
+		text-decoration: none;
+	}
+	a.fitur:hover, a.fitur:active {
+		background-color: white;
+	}
+	a.gambar:link, a.gambar:visited {
+		opacity: 0.1;
+	}
+	a.gambar:hover, a.gambar:active {
+		opacity: 1;
+	}
 	body {
 		background-image: url('https://ruang-irgi.github.io/g1.png');
-		background-size: cover;
+		background-size: 130% 100%;
 	}
 	img {
-		width: 100%;
-		opacity: 0.8;
+		width: 70%;
+		opacity: 1;
 	}
 </style>
 </head>
 <body>
-	<h1><center>Selamat Datang di<br>Ruang Irgi</center></h1>
-	<h2>Fitur yang tersedia:</h2><br>
+	<h1 style="color: rgb(230,50,100)"><center>Selamat Datang di<br>Ruang Irgi</center></h1>
+	<h2 style="color: rgb(10,230,100)">Fitur yang tersedia:</h2><br>
 	<center>
-		<a href="https://ruang-irgi.github.io/calc_irgi.html" style="font-size: 300%">Kalkulator</a>
-		<a href="https://ruang-irgi.github.io/calc_irgi.html"><img src='https://ruang-irgi.github.io/g2.jpg'></a>
+		<a class='fitur' href="https://ruang-irgi.github.io/calc_irgi.html" style="font-size: 300%">Kalkulator</a><br><br>
+		<a class='gambar' href="https://ruang-irgi.github.io/calc_irgi.html"><img src='https://ruang-irgi.github.io/g2.jpg'></a>
+	</center><br><br><br>
+	<center>
+		<a class='fitur' href="https://ruang-irgi.github.io/quotes_irgi.html" style="font-size: 300%">Quote Acak</a><br><br>
+		<a class='gambar' href="https://ruang-irgi.github.io/quotes_irgi.html"><img src='https://ruang-irgi.github.io/g3.jpg'></a>
 	</center>
-	<h2><a href="https://ruang-irgi.github.io/quotes_irgi.html">2. Quote Acak</a></h2>
 </body>
 </html>
