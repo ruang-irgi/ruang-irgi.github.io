@@ -3,6 +3,13 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Ruang Irgi</title>
+<script>
+	function ubahBg(){
+		let bg = document.getElementById('jenis').value;
+		if (bg == 2) document.getElementById('body1').style.backgroundImage = "url('https://ruang-irgi.github.io/g4.jpg')";
+		else if (bg == 1) document.getElementById('body1').style.backgroundImage = "url('https://ruang-irgi.github.io/g1.png')";
+	}
+</script>
 <style>
 	a.fitur:link, a.fitur:visited {
 		color: rgb(10,230,100);
@@ -18,18 +25,41 @@
 		opacity: 1;
 	}
 	body {
-		background-image: url('https://ruang-irgi.github.io/g4.jpg');
+		background-image: url('https://ruang-irgi.github.io/g1.png');
 		background-size: 130% 100%;
+	}
+	footer {
+		background-color: rgba(250,10,10,0.3);
+		padding-bottom: 5px;
+		text-align: center;
 	}
 	img {
 		width: 70%;
 		opacity: 1;
 	}
+	#span1 {
+		border-radius: 10px;
+		color: rgb(10,230,100);
+		font-size: 130%;
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	#jenis {
+		background-color: rgba(10,230,100,0.8);
+		border: none;
+		border-radius: 10px;
+	}
 </style>
 </head>
-<body>
-	<h1 style="color: rgb(230,50,100)"><center>Selamat Datang di<br>Ruang Irgi</center></h1>
-	<h2 style="color: rgb(10,230,100)">Fitur yang tersedia:</h2><br>
+<body id='body1'>
+	<h1 style="color: rgb(230,50,100)" onclick="alert('2024 penuh tantangan\n2023 tinggal kenangan')"><center>Selamat Datang di<br>Ruang Irgi</center></h1>
+	<h2 style="color: rgb(10,230,100); margin-bottom: 2px;">Fitur yang tersedia:</h2><br>
+	<span id='span1'>Ganti Background: 
+		<select id='jenis' onchange='ubahBg()'>
+			<option value=1>1</option>
+			<option value=2>2</option>
+		</select>
+	</span>
 	<center>
 		<a class='fitur' href="https://ruang-irgi.github.io/calc_irgi.html" style="font-size: 300%">Kalkulator</a><br><br>
 		<a class='gambar' href="https://ruang-irgi.github.io/calc_irgi.html"><img src='https://ruang-irgi.github.io/g2.jpg'></a>
@@ -38,5 +68,10 @@
 		<a class='fitur' href="https://ruang-irgi.github.io/quotes_irgi.html" style="font-size: 300%">Quote Acak</a><br><br>
 		<a class='gambar' href="https://ruang-irgi.github.io/quotes_irgi.html"><img src='https://ruang-irgi.github.io/g3.jpg'></a>
 	</center>
+	<footer>
+		<h2 style="color: yellow; margin-bottom: 5px;">Author: Irgian Saputra</h2>
+		<a class="fitur" href="https://wa.me/6282284965036">WhatsApp</a><br>
+		<a class="fitur" href="https://github.com/ruang-irgi">Github</a>
+	</footer>
 </body>
 </html>
