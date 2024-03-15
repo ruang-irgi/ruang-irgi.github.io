@@ -5,31 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
 	let noBg1 = false;
+	
 	function bg(){
 		let bg1 = document.getElementById('jenis').value;
 		if ((bg1 == 'q_islami' || bg1 == 'acak') && !noBg1){
 			document.getElementById('body1').style.backgroundImage = "url('https://raw.githubusercontent.com/ruang-irgi/ruang-irgi.github.io/main/306309.jpg')";
-			document.getElementById('body1').style.backgroundSize = '190% 140%';
+			//document.getElementById('body1').style.backgroundSize = '190% 140%';
 			document.getElementById('body1').style.color = 'rgb(240,50,210)';
 		} else if (bg1 == 'q_motiv' && !noBg1) {
 			document.getElementById('body1').style.backgroundImage = "url('https://i0.wp.com/winpoin.com/wp-content/uploads/2015/08/wallpapermotivasi_10.jpeg')";
-			document.getElementById('body1').style.backgroundSize = '190% 140%'
+			//document.getElementById('body1').style.backgroundSize = '190% 140%'
 			document.getElementById('body1').style.color = 'red';
 		} else if (bg1 == 'q_love' && !noBg1) {
 			document.getElementById('body1').style.backgroundImage = "url('https://png.pngtree.com/background/20210709/original/pngtree-red-stereo-border-love-valentines-day-background-picture-image_905497.jpg')";
-			document.getElementById('body1').style.backgroundSize = '120% 150%';
+			//document.getElementById('body1').style.backgroundSize = '120% 150%';
 			document.getElementById('body1').style.color = 'black';
 		}
 	}
+	
 	function noBG(){
 			document.getElementById('body1').style.backgroundImage = "none";
 			document.getElementById('body1').style.color = 'black';
 			noBg1 = true;
 			document.getElementById('hapus').style.display = 'none';
 	}
+	
 	async function quotes(){
 		let jenisQuote = document.getElementById('jenis').value;
-		
 		if (jenisQuote == 'acak'){
 			let noQuote = Math.round(Math.random()*2);
 			switch(noQuote){
@@ -44,7 +46,6 @@
 					break;
 			}
 		}
-		
 		switch(jenisQuote){
 			case 'q_islami':
 				var banyakQuote = 139;
@@ -56,7 +57,6 @@
 				var banyakQuote = 283;
 				break;
 		}
-		
 		fetch(`https://ruang-irgi.github.io/${jenisQuote}.txt`).then(response => response.text()).then(data => {
 			let lines = data.split('\n');
 			let x = Math.round(Math.random() * banyakQuote);
@@ -68,6 +68,7 @@
 			}
 		}).catch(error => {alert('Ado error')});
 	}
+	
 	async function tlTeks(){
 		const teks = document.getElementById('quote').innerHTML;
 		const bahasa = 'id';
@@ -82,12 +83,16 @@
 	}
 </script>
 <style>
-body {
+#body1 {
 	background-image: url('https://raw.githubusercontent.com/ruang-irgi/ruang-irgi.github.io/main/306309.jpg');
-	background-size: 190% 140%;
+	background-size: cover;
 	background-position: 60% 80%;
-	background-attachment: fixed;
 	color: rgb(240,50,210);
+	height: 100%;
+	padding-left: 1%;
+	position: fixed;
+	left: 0; top: 0;
+	width: 100%;
 }
 #quote, #translatedText {
 	text-align: center;
@@ -97,7 +102,8 @@ body {
 }
 </style>
 </head>
-<body id='body1'>
+<body bgcolor='black'>
+<div id='body1'>
 	<h1><center>Quotes</center></h1>
 	<div>Pilih jenis:
 		<select id='jenis' onchange='bg()'>
@@ -116,5 +122,16 @@ body {
 			<h3 id='translatedText'></h3>
 		</center>
 	</div>
+</div>
+<script>
+	let x = window.screen.width;
+	let y = window.screen.height;
+	if (x > y){
+		let ubahBody = document.getElementById('body1');
+		ubahBody.style.left = '25%';
+		ubahBody.style.width = '50%';
+		ubahBody.style.backgroundSize = '100% 100%';
+	}
+</script>
 </body>
 </html>
