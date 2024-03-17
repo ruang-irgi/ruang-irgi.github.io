@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
 	let proses1 = '', ubah = true, deg = false;
+	
+
 	function faktorial(n){
 		if (Math.floor(n) != n || n < 0) throw 1;
 		let fak = 1;
@@ -86,41 +88,53 @@
 			ubah = true;
 		}
 	}
-	alert("Masih tahap pengembangan\nSangat menerima perbaikan dan masukan");
-	alert("Fungsi trigonometri menggunakan kurung tutup dua kali untuk satuan derajat(deg)");
-	alert("Sebelum mencari nilai faktorial, gunakan fungsi fak terlebih dahulu");
+	//alert("Masih tahap pengembangan\nSangat menerima perbaikan dan masukan");
+	//alert("Fungsi trigonometri menggunakan kurung tutup dua kali untuk satuan derajat(deg)");
+	//alert("Sebelum mencari nilai faktorial, gunakan fungsi fak terlebih dahulu");
 </script>
 <style>
-	body {
+	#body1 {
 		background-image: url('https://ruang-irgi.github.io/g5.jpg');
 		background-attachment: fixed;
-		background-size: 100% 100%;
+		background-size: auto 100%;
+		height: 100%;
+		position: fixed;
+		left: 0; top: 0;
+		width: 100%;
 	}
 	footer {
 		background-color: rgba(10,200,50,0.5);
-		bottom: 0;
-		color: red;
+		color: black;
 		font-family: monospace;
-		font-size: 150%;
+		font-size: 180%;
 		height: 35px;
 		left: 0px;
 		padding-top: 5px;
-		position: tricky;
+		position: absolute;
+		bottom: 0;
 		text-align: center;
 		width: 100%;
 	}
 	table {
-		border: 5px solid red;
 		border-collapse: collapse;
-		width: 90%
+		width: 90%;
 	}
 	td {
 		text-align: center;
-		border: 1px solid black;
 		height: 70px;
 		font-size: 40px;
 		background-color: rgba(43,45,43,0.3);
 		width : 25%;
+	}
+	@keyframes tes {
+		0%		{background-color: rgba(20,20,20,0.01);}
+		50%		{background-color: rgba(20,200,20,1);}
+		100%	{background-color: rgba(200,20,200,0.01);}
+	}
+	.op1:hover, .hover1:hover {
+		
+		animation-name: tes;
+		animation-duration: 2s;
 	}
 	.op1 {
 		display: table-cell;
@@ -166,9 +180,11 @@
 	}
 </style>
 </head>
-<body>
+<body bgcolor='black'>
+<div id='body1'>
+	<div style="font-size: 50px; text-align: center;">Kalkulator Irgi</div>
+	<br><br><br><br>
 	<table align='center'>
-		<caption style="font-size: 50px">Kalkulator Irgi</caption>
 		<tr>
 			<td id='satuan' colspan='4'>rad</td>
 		</tr><tr>
@@ -176,39 +192,50 @@
 		</tr><tr>
 			<td id='terakhir1' colspan='4'><textarea id='terakhir' disabled>0</textarea></td>
 		</tr><tr>
-			<td id='rad'   onclick='ubahSatuan("deg")'>deg</td><td id='deg' style='display: none' onclick='ubahSatuan("rad")'>rad</td>
-			<td id='other' onclick='tes()'>2nd</td>
-			<td onclick='hapus()'>&#x232B</td>
-			<td onclick="ulang()">AC</td>
+			<td id='rad'   class='hover1' onclick='ubahSatuan("deg")'>deg</td><td id='deg' style='display: none' onclick='ubahSatuan("rad")'>rad</td>
+			<td id='other' class='hover1' onclick='tes()'>2nd</td>
+			<td class='hover1' onclick='hapus()'>&#x232B</td>
+			<td class='hover1' onclick="ulang()">AC</td>
 		</tr><tr>
 			<td id='a1' class='op1'	onclick="inputA(1, 1)">1</td><td class='op2' id='sin' 	onclick="inputB('Math.sin(', 'sin(')">sin</td>
 			<td id='a2' class='op1'	onclick="inputA(2, 2)">2</td><td class='op2' id='cos'	onclick="inputB('Math.cos(', 'cos(')">cos</td>
 			<td id='a3' class='op1'	onclick="inputA(3, 3)">3</td><td class='op2' id='tan'	onclick="inputB('Math.tan(', 'tan(')">tan</td>
-			<td id='kali' 	onclick="inputA('*', '&#215')">&#215</td>
+			<td id='kali' class='hover1' onclick="inputA('*', '&#215')">&#215</td>
 		</tr><tr>
 			<td id='a4' class='op1'	onclick="inputA(4, 4)">4</td><td class='op2' id='asin' onclick="inputA('Math.asin(', 'arc sin(')">sin<sup>-1</sup></td>
 			<td id='a5' class='op1'	onclick="inputA(5, 5)">5</td><td class='op2' id='acos' onclick="inputA('Math.acos(', 'arc cos(')">cos<sup>-1</sup></td>
 			<td id='a6' class='op1'	onclick="inputA(6, 6)">6</td><td class='op2' id='atan' onclick="inputA('Math.atan(', 'arc tan(')">tan<sup>-1</sup></td>
-			<td id='bagi' 			onclick="inputA('/', '/')">/</td>
+			<td id='bagi' class='hover1' onclick="inputA('/', '/')">/</td>
 		</tr><tr>
 			<td id='a7' class='op1'	onclick="inputA(7, 7)">7</td><td class='op2' id='exp' onclick="inputA('Math.exp(', 'exp(')">e<sup>x</sup></td>
 			<td id='a8' class='op1'	onclick="inputA(8, 8)">8</td><td class='op2' id='ln' onclick="inputA('Math.log(', 'ln(')">ln</td>
 			<td id='a9' class='op1'	onclick="inputA(9, 9)">9</td><td class='op2' id='mod' onclick="inputA('%(', 'mod(')">mod</td>
-			<td id='tambah' 		onclick="inputA('+', '+')">+</td>
+			<td id='tambah' class='hover1' onclick="inputA('+', '+')">+</td>
 		</tr><tr>
 			<td id='minus' 	class='op1'	onclick="inputA('-', '-')">&plusmn</td>	<td class='op2' id='pi' onclick="inputA('Math.PI', '&#x03C0')">&#x03C0</td>
 			<td id='a0' 	class='op1'	onclick="inputA(0, 0)">0</td>			<td class='op2' id='panduan' style="font-size: 20px" onclick="alert('nyusul')">Guide</td>
 			<td id='koma' 	class='op1'	onclick="inputA('.', '.')">.</td>		<td class='op2' id='fk' onclick="inputA('faktorial(', 'fak')">fak</td>
-			<td id='kurang' onclick="inputA('-', '-')">-</td>
+			<td id='kurang' class='hover1' onclick="inputA('-', '-')">-</td>
 		</tr><tr>
-			<td id='kuKiri'  onclick="inputA('(', '(')">(</td>
-			<td id='kuKanan' onclick="inputA(')', ')')">)</td>
-			<td id='pangkat' onclick="inputA('**', '^')">^</td>
-			<td 			 onclick="gas()">=</td>
+			<td id='kuKiri'  class='hover1' onclick="inputA('(', '(')">(</td>
+			<td id='kuKanan' class='hover1' onclick="inputA(')', ')')">)</td>
+			<td id='pangkat' class='hover1' onclick="inputA('**', '^')">^</td>
+			<td 			 class='hover1' onclick="gas()">=</td>
 		</tr>
 	</table>
 	<footer>
 		Made in Ruang Irgi
 	</footer>
+</div>
+<script>
+	let x = window.screen.width;
+	let y = window.screen.height;
+	if (x > y){
+		let ubahBody = document.getElementById('body1');
+		ubahBody.style.left = '30%';
+		ubahBody.style.width = '40%';
+		ubahBody.style.backgroundSize = '100% 100%';
+	}
+</script>
 </body>
 </html>
