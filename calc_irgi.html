@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
-	let proses1 = '', ubah = true, deg = false;
+	let proses1 = '', ubah = true, deg = false, proses2 = '(';
 	
 
 	function faktorial(n){
@@ -40,8 +40,16 @@
 			showInputA(data2);
 		}
 	}
+	function kurung(data1){
+		if (data1 == '('){
+			proses2 += data1;
+		} else {
+			prosesA(proses2);
+			proses2 = '(';
+		}
+	}
 	function prosesA(data){
-		if ((data == document.getElementById('kuKiri').innerHTML) && (+proses1[proses1.length - 1] == 'number')){
+		if ((data == '(') && (Number.isInteger(+proses1[proses1.length - 1]))){
 			proses1 += '*(';
 		} else {
 			proses1 += `${data}`;
@@ -75,9 +83,19 @@
 		proses1 = '';
 		document.getElementById('hasil').innerHTML = '0';
 	}
-	function tes(){
+	function tes(urutan){
 		let op1Elemen = document.querySelectorAll('.op1');
 		let op2Elemen = document.querySelectorAll('.op2');
+		let pertama = document.getElementById('other');
+		let kedua = document.getElementById('other1');
+
+		if (urutan == 1){
+			pertama.style.display = 'none';
+			kedua.style.display = 'table-cell';		 
+		} else {
+			pertama.style.display = 'table-cell';
+			kedua.style.display = 'none';		 
+		}
 		if (ubah){
 			op1Elemen.forEach(function(element) {element.style.display = 'none'});
 			op2Elemen.forEach(function(element) {element.style.display = 'table-cell'});		 
@@ -97,12 +115,12 @@
 		background-image: url('https://ruang-irgi.github.io/g5.jpg');
 		background-attachment: fixed;
 		background-size: auto 100%;
-		height: 100%;
-		position: fixed;
+		height: 120%;
+		position: absolute;
 		left: 0; top: 0;
 		width: 100%;
 	}
-	footer {
+	p {
 		background-color: rgba(10,200,50,0.5);
 		color: black;
 		font-family: monospace;
@@ -110,7 +128,7 @@
 		height: 35px;
 		left: 0px;
 		padding-top: 5px;
-		position: absolute;
+		position: sticky;
 		bottom: 0;
 		text-align: center;
 		width: 100%;
@@ -121,8 +139,8 @@
 	}
 	td {
 		text-align: center;
-		height: 70px;
-		font-size: 40px;
+		height: 60px;
+		font-size: 30px;
 		background-color: rgba(43,45,43,0.3);
 		width : 25%;
 	}
@@ -131,10 +149,11 @@
 		50%		{background-color: rgba(20,200,20,1);}
 		100%	{background-color: rgba(200,20,200,0.01);}
 	}
-	.op1:hover, .hover1:hover {
+	.op1:hover, .op2:hover, .hover1:hover {
 		
 		animation-name: tes;
 		animation-duration: 2s;
+		animation-iteration-count: infinite;
 	}
 	.op1 {
 		display: table-cell;
@@ -166,6 +185,7 @@
 	#terakhir {
 		background-color: rgba(43,45,43,0);
 		border: none;
+		color: red;
 		font-size: 17px;
 		height: 30px;
 		padding-right: 5px;
@@ -182,18 +202,18 @@
 </head>
 <body bgcolor='black'>
 <div id='body1'>
-	<div style="font-size: 50px; text-align: center;">Kalkulator Irgi</div>
-	<br><br><br><br>
+	<div style="background-color: rgba(10,200,50,0.3); font-size: 50px; text-align: center;">Kalkulator Irgi</div>
+	<br><br>
 	<table align='center'>
 		<tr>
-			<td id='satuan' colspan='4'>rad</td>
+			<td id='satuan' colspan='4'>deg</td>
 		</tr><tr>
 			<td id='hasil1' colspan='4'><textarea id='hasil' disabled>0</textarea></td>
 		</tr><tr>
 			<td id='terakhir1' colspan='4'><textarea id='terakhir' disabled>0</textarea></td>
 		</tr><tr>
-			<td id='rad'   class='hover1' onclick='ubahSatuan("deg")'>deg</td><td id='deg' style='display: none' onclick='ubahSatuan("rad")'>rad</td>
-			<td id='other' class='hover1' onclick='tes()'>2nd</td>
+			<td id='rad'   class='hover1' style='display: none' onclick='ubahSatuan("deg")'>deg</td><td id='deg' class="hover1" onclick='ubahSatuan("rad")'>rad</td>
+			<td id='other' class='hover1' onclick='tes(1)'>2nd</td><td id='other1' class="hover1" style='display: none' onclick='tes(2)'>1st</td>
 			<td class='hover1' onclick='hapus()'>&#x232B</td>
 			<td class='hover1' onclick="ulang()">AC</td>
 		</tr><tr>
@@ -223,9 +243,9 @@
 			<td 			 class='hover1' onclick="gas()">=</td>
 		</tr>
 	</table>
-	<footer>
+	<p>
 		Made in Ruang Irgi
-	</footer>
+	</p>
 </div>
 <script>
 	let x = window.screen.width;
