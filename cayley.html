@@ -5,43 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabel Cayley &integers;n dan U(n)</title>
     <style>
-        #tabel {
-            background-color: rgb(19, 248, 2);
-            width: 500px;
+        body {
+            text-align: center;
+        }
+        * {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .kiri {
+            margin-left: 45%;
+            text-align: left;
         }
     </style>
 </head>
 <body>
     <h1>Tabel Cayley &integers;<sub>n</sub> dan U(n)</h1>
-    <div>Lokasi Tabel Cayley</div>
-    <tabel id="tabel"></tabel>
+    <div>
+        <div class="kiri"><label for="data">Input n: <input type="number" id="data"></label></div>
+        <div class="kiri">
+            Jenis himpunan: <select id="jenis">
+            <option value="Z">&integers;</option>
+            <option value="U">U</option>
+            </select>
+        </div>
+    </div>
 
+    <input type="submit" value="Buat Tabel" onclick="buatTabel()"><br><br>
+    <div>Tabel Cayley ( &plus; )</div>
+    <div id="tabel1"></div>
+    <div>Tabel Cayley ( &times; )</div>
+    <div id="tabel2"></div>
     <script>
-        //mengambil elemen tabel 
-        const tabelAsli = document.getElementById('tabel');
-        //deklarasi string untuk tabel
-        let tabel = "";
-        let n = 5;
-        for (let i = 0; i <= n; i++) {
-            tabel += "<tr>";
-            for (let j = 0; j <= n; j++) {
-                //input isi sel
-                if (i == 0 && j == 0) {
-                    tabel += `<td id="${i},${j}">+<sub>${n}</sub></td>`;
+        function buatTabel() {
+            const n = document.getElementById('data').value;
+            //mengambil elemen tabel 
+            const tabelAsli1 = document.getElementById('tabel1');
+            const tabelAsli2 = document.getElementById('tabel2');
+            //deklarasi string untuk tabel
+            let tabel1 = "<table>";
+            let tabel2 = "<table>";
+            for (let i = 0; i <= n; i++) {
+                tabel1 += "<tr>";
+                tabel2 += "<tr>";
+                for (let j = 0; j <= n; j++) {
+                    //input isi sel
+                    if (i == 0 && j == 0) {
+                        tabel1 += `<th id="A${i},${j}">&plus;<sub>${n}</sub></th>`;
+                        tabel2 += `<th id="B${i},${j}">&times;<sub>${n}</sub></th>`;
+                    }
+                    else if (i == 0) {
+                        tabel1 += `<th id="A${i},${j}">${j - 1}</th>`;
+                        tabel2 += `<th id="B${i},${j}">${j - 1}</th>`;
+                    }
+                    else if (j == 0) {
+                        tabel1 += `<th id="A${i},${j}">${i - 1}</th>`;
+                        tabel2 += `<th id="B${i},${j}">${i - 1}</th>`;
+                    }
+                    else {
+                        tabel1 += `<td id="A${i},${j}">${(i - 1 + j - 1) % n}</td>`;
+                        tabel2 += `<td id="B${i},${j}">${((i - 1) * (j - 1)) % n}</td>`;
+                    }
                 }
-                else if (i == 0) {
-                    tabel += `<td id="${i},${j}">${i - 1}</td>`;
-                }
-                else if (j == 0) {
-                    tabel += `<td id="${i},${j}">${j - 1}</td>`;
-                }
-                else {
-                    tabel += `<td id="${i},${j}">${(i + j) % n}</td>`;
-                }
+                tabel1 += "</tr>";
+                tabel2 += "</tr>";
             }
-            tabel += "</tr>";
+            tabel1 += "</table>";
+            tabel2 += "</table>";
+
+            tabelAsli1.innerHTML = tabel1;
+            tabelAsli2.innerHTML = tabel2;
         }
-        tabelAsli.textContent = tabel;
     </script>
 </body>
 </html>
