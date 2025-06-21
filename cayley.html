@@ -7,35 +7,78 @@
     <style>
         body {
             text-align: center;
+            background-color: #F8F8F8;
         }
         * {
             margin-left: auto;
             margin-right: auto;
         }
+        .inputData {
+            border: 2px solid #1A237E;
+            font-weight: bold;
+            font-size: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            width: 400px;
+        }
+        .inputData:hover {
+            background-color: #8b92e2;
+        }
         .kiri {
-            margin-left: 45%;
+            margin-left: 25%;
             text-align: left;
+        }
+        input, select {
+            border: 1px dashed black;
+            display: inline-block;
+            height: 30px;
+        }
+        input:focus, select:focus {
+            background-color: rgb(77, 231, 110);
+        }
+        td {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid black;
+            font-size: 16px;
+        }
+        td:hover {
+            background-color: #F0F4C3;
+        }
+        h1 {
+            color: #1A237E;
         }
     </style>
 </head>
 <body>
-    <h1>Tabel Cayley &integers;<sub>n</sub> dan U(n)</h1>
-    <div>
-        <div class="kiri"><label for="data">Input n: <input type="number" id="data"></label></div>
+    <h1>Tabel Cayley Generator<br>&integers;<sub>n</sub> dan U(n)</h1>
+    <div class="inputData" id="inputData">
+        <div class="kiri"><label for="data">Input n: <input type="number" id="data" style="width: 80px; max-width: 80%;" placeholder="1,2,3,4,5,..."></label></div>
         <div class="kiri">
             Jenis himpunan: <select id="jenis">
             <option value="Z">&integers;</option>
             <option value="U">U</option>
             </select>
         </div>
+        <input type="submit" value="Buat Tabel" onclick="
+    if (document.getElementById('jenis').value == 'Z') buatTabel();
+    else buatTabel2();
+    ">
     </div>
 
-    <input type="submit" value="Buat Tabel" onclick="buatTabel()"><br><br>
-    <div>Tabel Cayley ( &plus; )</div>
-    <div id="tabel1"></div>
-    <div>Tabel Cayley ( &times; )</div>
+    <br><br>
+    <h2>Tabel Cayley ( &plus; )</h2>
+    <div id="tabel1"></div><br>
+    <hr>
+    <h2>Tabel Cayley ( &times; )</h2>
     <div id="tabel2"></div>
     <script>
+        let tempatInput = document.getElementById("inputData");
+        const lebarDevice = document.documentElement.clientWidth;
+        if (lebarDevice < 400) tempatInput.style.width = "100%"
+
+        //fungsi pembuatan tabel cayley
         function buatTabel() {
             const n = document.getElementById('data').value;
             //mengambil elemen tabel 
@@ -73,6 +116,56 @@
             tabel2 += "</table>";
 
             tabelAsli1.innerHTML = tabel1;
+            tabelAsli2.innerHTML = tabel2;
+        }
+        function buatTabel2() {
+            const n = document.getElementById('data').value;
+            //mengambil elemen tabel 
+            const tabelAsli1 = document.getElementById('tabel1');
+            tabelAsli1.innerHTML = '';
+            const tabelAsli2 = document.getElementById('tabel2');
+            //deklarasi string untuk tabel
+            let tabel2 = "<table>";
+            let salingPrima1, salingPrima2;
+            for (let i = 0; i <= n; i++) {
+                salingPrima1 = true;
+                if (i != 0) {
+                    for (let k = 2; k <= i; k++) {
+                        if ((i % k == 0) && (n % k == 0)){
+                            salingPrima1 = false;
+                        }
+                    }
+                }
+                if (!salingPrima1) continue;
+                tabel2 += "<tr>";
+                for (let j = 0; j <= n; j++) {
+                    //input isi sel
+                    salingPrima2 = true;
+                    if (j != 0) {
+                        for (let k = 2; k <= j; k++) {
+                            if ((j % k == 0) && (n % k == 0)){
+                                salingPrima2 = false;
+                            }
+                        }
+                    }
+                    if (!salingPrima2) continue;
+                    if (i == 0 && j == 0) {
+                        tabel2 += `<th id="B${i},${j}">&times;<sub>${n}</sub></th>`;
+                    }
+                    else if (i == 0) {
+                        tabel2 += `<th id="B${i},${j}">${j}</th>`;
+                    }
+                    else if (j == 0) {
+                        tabel2 += `<th id="B${i},${j}">${i}</th>`;
+                    }
+                    else {
+                        tabel2 += `<td id="B${i},${j}">${((i) * (j)) % n}</td>`;
+                    }
+                }
+                tabel2 += "</tr>";
+            }
+            tabel2 += "</table>";
+
             tabelAsli2.innerHTML = tabel2;
         }
     </script>
