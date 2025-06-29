@@ -34,17 +34,28 @@
             height: 30px;
         }
         input:focus, select:focus {
-            background-color: rgb(77, 231, 110);
+            background-color: rgba(77, 231, 110, 1);
+        }
+        input:hover, select:hover {
+            background-color: rgba(77, 231, 110, 0.6);
         }
         td {
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             text-align: center;
             border: 1px solid black;
-            font-size: 16px;
+            font-size: 15px;
         }
         td:hover {
             background-color: #F0F4C3;
+        }
+        th {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            border: 1px solid black;
+            font-size: 18px;
+            background-color: #E3F2FD;
         }
         h1 {
             color: #1A237E;
@@ -74,9 +85,28 @@
     <h2>Tabel Cayley ( &times; )</h2>
     <div id="tabel2"></div>
     <script>
+        //penyesuaian tampilan
         let tempatInput = document.getElementById("inputData");
         const lebarDevice = document.documentElement.clientWidth;
         if (lebarDevice < 400) tempatInput.style.width = "100%"
+
+        //perilaku saat sel hover
+        function ubahHeader(tipe,i,j) {
+            const kolom = document.getElementById(`${tipe}0,${j}`);
+            const baris = document.getElementById(`${tipe}${i},0`);
+            kolom.style.backgroundColor = "#F0F4C3";
+            kolom.style.fontSize = "18px";
+            baris.style.fontSize = "18px";
+            baris.style.backgroundColor = "#F0F4C3";
+        }
+        function balikHeader(tipe,i,j) {
+            const kolom = document.getElementById(`${tipe}0,${j}`);
+            const baris = document.getElementById(`${tipe}${i},0`);
+            kolom.style.backgroundColor = "#E3F2FD";
+            kolom.style.fontSize = "18px";
+            baris.style.fontSize = "18px";
+            baris.style.backgroundColor = "#E3F2FD";
+        }
 
         //fungsi pembuatan tabel cayley
         function buatTabel() {
@@ -105,8 +135,8 @@
                         tabel2 += `<th id="B${i},${j}">${i - 1}</th>`;
                     }
                     else {
-                        tabel1 += `<td id="A${i},${j}">${(i - 1 + j - 1) % n}</td>`;
-                        tabel2 += `<td id="B${i},${j}">${((i - 1) * (j - 1)) % n}</td>`;
+                        tabel1 += `<td id="A${i},${j}" onmouseover="ubahHeader('A',${i},${j})" onmouseout="balikHeader('A',${i},${j})">${(i - 1 + j - 1) % n}</td>`;
+                        tabel2 += `<td id="B${i},${j}" onmouseover="ubahHeader('B',${i},${j})" onmouseout="balikHeader('B',${i},${j})">${((i - 1) * (j - 1)) % n}</td>`;
                     }
                 }
                 tabel1 += "</tr>";
@@ -117,6 +147,7 @@
 
             tabelAsli1.innerHTML = tabel1;
             tabelAsli2.innerHTML = tabel2;
+        
         }
         function buatTabel2() {
             const n = document.getElementById('data').value;
@@ -159,7 +190,7 @@
                         tabel2 += `<th id="B${i},${j}">${i}</th>`;
                     }
                     else {
-                        tabel2 += `<td id="B${i},${j}">${((i) * (j)) % n}</td>`;
+                        tabel2 += `<td id="B${i},${j}" onmouseover="ubahHeader('B',${i},${j})" onmouseout="balikHeader('B',${i},${j})">${((i) * (j)) % n}</td>`;
                     }
                 }
                 tabel2 += "</tr>";
