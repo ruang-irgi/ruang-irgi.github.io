@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alat Kriptografi Profesional</title>
+    <!-- Memuat Tailwind CSS untuk styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat font Inter dari Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Menghilangkan scrollbar pada textarea tapi tetap bisa di-scroll */
+        textarea::-webkit-scrollbar {
+            width: 8px;
+        }
+        textarea::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        textarea::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-brand-50 to-slate-100 min-h-screen flex items-center justify-center p-4 antialiased text-slate-800">
+
+    <!-- Container Utama (Card) -->
+    <main class="bg-white rounded-3xl shadow-2xl shadow-brand-500/10 border border-slate-100 w-full max-w-md overflow-hidden transition-all duration-300">
+        
+        <!-- Header Section -->
+        <header class="bg-brand-600 p-6 text-center text-white relative overflow-hidden">
+            <!-- Dekorasi background abstrak di header -->
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-white opacity-10 rounded-full blur-2xl"></div>
+            <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-white opacity-10 rounded-full blur-2xl"></div>
+            
+            <h1 class="text-2xl font-bold tracking-tight relative z-10">Double Multiplication Matrix Cipher</h1>
+            <p class="text-brand-100 text-sm mt-1 font-medium relative z-10">Keamanan Pesan Rahasia</p>
+        </header>
+
+        <div class="p-6 sm:p-8 space-y-5">
+            
+            <!-- Pilihan Mode (Enkripsi / Dekripsi) -->
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Mode Operasi</label>
+                <div class="flex p-1 bg-slate-100 rounded-xl relative">
+                    <label class="flex-1 text-center relative z-10">
+                        <input type="radio" name="mode" value="enkripsi" class="peer hidden" checked>
+                        <div class="cursor-pointer py-2.5 px-4 rounded-lg text-sm font-semibold text-slate-500 transition-all peer-checked:bg-white peer-checked:text-brand-600 peer-checked:shadow-sm">
+                            Enkripsi
+                        </div>
+                    </label>
+                    <label class="flex-1 text-center relative z-10">
+                        <input type="radio" name="mode" value="dekripsi" class="peer hidden">
+                        <div class="cursor-pointer py-2.5 px-4 rounded-lg text-sm font-semibold text-slate-500 transition-all peer-checked:bg-white peer-checked:text-brand-600 peer-checked:shadow-sm">
+                            Dekripsi
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Input Pesan -->
+            <div>
+                <label for="pesan" class="block text-sm font-semibold text-slate-700 mb-2">Pesan</label>
+                <textarea id="pesan" rows="3" 
+                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl focus:ring-4 focus:ring-brand-500/20 focus:border-brand-500 block p-3.5 transition-all duration-200 outline-none resize-y" 
+                    placeholder="Ketik pesanmu di sini..."></textarea>
+            </div>
+
+            <!-- Input Sandi -->
+            <div>
+                <label for="sandi" class="block text-sm font-semibold text-slate-700 mb-2">Kata Sandi (3 Digit)</label>
+                <div class="relative">
+                    <!-- Ikon Kunci (SVG) -->
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
+                        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    </div>
+                    <input type="text" id="sandi" maxlength="3" pattern="\d{3}" autocomplete="off"
+                        class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl focus:ring-4 focus:ring-brand-500/20 focus:border-brand-500 block p-3.5 pl-10 transition-all duration-200 outline-none font-mono tracking-widest" 
+                        placeholder="123">
+                </div>
+                <p class="text-xs text-slate-500 mt-1.5 ml-1">Pastikan hanya menggunakan 3 digit angka.</p>
+            </div>
+
+            <!-- Tombol Proses -->
+            <button id="btn-proses" 
+                class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl text-sm px-5 py-3.5 mt-2 shadow-lg shadow-brand-500/30 transform transition-all duration-200 active:scale-[0.98] flex justify-center items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                <span>Jalankan Enkripsi</span>
+            </button>
+
+            <!-- Output Hasil -->
+            <div class="pt-2">
+                <label for="hasil" class="block text-sm font-semibold text-slate-700 mb-2">Hasil Proses</label>
+                <div class="relative">
+                    <textarea id="hasil" rows="3" readonly
+                        class="w-full bg-slate-100/70 border border-slate-200 text-brand-700 text-sm rounded-xl block p-3.5 outline-none resize-none cursor-not-allowed font-medium" 
+                        placeholder="Output akan tampil di sini..."></textarea>
+                    
+                    <!-- Tombol Salin (Opsional, tambahan UI/UX yang bagus) -->
+                    <button id="btn-copy" class="absolute top-2 right-2 p-2 bg-white rounded-lg shadow-sm border border-slate-200 text-slate-500 hover:text-brand-600 transition-colors" title="Salin ke clipboard">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Tangkap elemen-elemen DOM
+        const inputPesan = document.getElementById('pesan');
+        const inputSandi = document.getElementById('sandi');
+        const outputHasil = document.getElementById('hasil');
+        const btnProses = document.getElementById('btn-proses');
+        const btnCopy = document.getElementById('btn-copy');
+        const modeRadios = document.querySelectorAll('input[name="mode"]');
+        
+        // Ikon SVG untuk tombol
+        const iconProses = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>`;
+
+        // Update teks tombol saat mode berubah
+        modeRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                const modeText = e.target.value === 'enkripsi' ? 'Enkripsi' : 'Dekripsi';
+                btnProses.innerHTML = `${iconProses} <span>Jalankan ${modeText}</span>`;
+            });
+        });
+
+        	//Melakukan matriks kunci 1 x matriks pesan x matriks kunci 2 (otw) - done
+			function perkalianMatriks(K1, K2, P){
+				let barisXKolom = 0
+				let hasilK1 = [], hasilK2 = [], hasilKali = []
+				for (let m = 0; m < P.length; m++){
+					hasilKali = []
+					for (let i = 0; i < 3; i++){
+						hasilKali[i] = []
+						for (let j = 0; j < 3; j++){
+							barisXKolom = 0
+							for (let k = 0; k < 3; k++){
+								barisXKolom += (K1[i][k] * P[m][k][j])
+							}
+							hasilKali[i].push(((barisXKolom % 89) + 89) % 89)
+						}
+					}
+					hasilK1.push(hasilKali)
+				}
+				for (let m = 0; m < P.length; m++){
+					hasilKali = []
+					for (let i = 0; i < 3; i++){
+						hasilKali[i] = []
+						for (let j = 0; j < 3; j++){
+							barisXKolom = 0
+							for (let k = 0; k < 3; k++){
+								barisXKolom += (hasilK1[m][i][k] * K2[k][j])
+							}
+							hasilKali[i].push(((barisXKolom % 89) + 89) % 89)
+						}
+					}
+					hasilK2.push(hasilKali)
+				}
+				return hasilK2
+			}
+			
+			//Mencari invers matriks
+			function inversMatriks(A){
+				let detA = A[0][0] * A[1][1] * A[2][2] + A[0][1] * A[1][2] * A[2][0] + A[0][2] * A[1][0] * A[2][1] - A[2][0] * A[1][1] * A[0][2] - A[2][1] * A[1][2] * A[0][0] - A[2][2] * A[1][0] * A[0][1]
+				for (let i = 1; i <= 89; i++){
+					if ((detA * i) % 89 == 1){
+						detA = i
+						break
+					}
+				}
+				let invA = [['', '', ''], ['', '', ''], ['', '', '']]
+				invA[0][0] = (A[1][1] * A[2][2] - A[1][2] * A[2][1]) * detA
+				invA[1][0] = (- A[1][0] * A[2][2] + A[1][2] * A[2][0]) * detA
+				invA[2][0] = (A[1][0] * A[2][1] - A[1][1] * A[2][0]) * detA
+				invA[0][1] = (- A[0][1] * A[2][2] + A[0][2] * A[2][1]) * detA
+				invA[1][1] = (A[0][0] * A[2][2] - A[0][2] * A[2][0]) * detA
+				invA[2][1] = (- A[0][0] * A[2][1] + A[0][1] * A[2][0]) * detA
+				invA[0][2] = (A[0][1] * A[1][2] - A[0][2] * A[1][1]) * detA
+				invA[1][2] = (- A[0][0] * A[1][2] + A[0][2] * A[1][0]) * detA
+				invA[2][2] = (A[0][0] * A[1][1] - A[0][1] * A[1][0]) * detA
+				return invA
+			}
+
+		function prosesKriptografi(pesan, sandi, mode) {
+            if (!pesan) return "Error: Pesan tidak boleh kosong!";
+            if (!sandi || sandi.length !== 3 || isNaN(sandi)) return "Error: Sandi harus 3 digit angka!";
+            
+			if (pesan.length % 9 != 0){
+				pesan = pesan + ' '.repeat(9 - (pesan.length % 9))
+			}
+			let numPesan1 = pesan.split('').map(x => {
+				if (x.charCodeAt(0) < 35) return x.charCodeAt(0) - 32
+				else if (x.charCodeAt(0) < 96) return x.charCodeAt(0) - 33
+				else return x.charCodeAt(0) - 34
+			})
+			let numPesan = []
+			for (let i = 0; i < numPesan1.length / 9; i++){
+				numPesan[i] = []
+				for (let j = 0; j < 9; j += 3){
+					numPesan[i].push(numPesan1.slice(9 * i + j, 9 * i + j + 3))
+				}
+			}
+			//Matriks kunci
+			let K1 = [[1,2 + sandi[0],4],[5,1 + sandi[1],2],[3,3 + sandi[2],1]]
+			let K2 = [[4,2 + sandi[0],4],[3,1 + sandi[1],2],[5,3 + sandi[2],1]]
+			//let K = [[1,2,4],[5,1,2],[3,3,1]]
+			
+			//Konversi array numerik ke pesan
+			let invK1 = inversMatriks(K1)
+			let invK2 = inversMatriks(K2)
+			if (mode === 'enkripsi') {hasil = perkalianMatriks(K1, K2, numPesan).flat(Infinity)}
+			else {hasil = perkalianMatriks(invK1, invK2, numPesan).flat(Infinity)}
+			hasil = hasil.map(x => {
+				if (x < 3) return String.fromCharCode(x + 32)
+				else if (x < 63) return String.fromCharCode(x + 33)
+				else return String.fromCharCode(x + 34)
+			})
+			hasilAkhir = hasil.join('')
+
+            return hasilAkhir; 
+        }
+
+        // Event listener saat tombol dipencet
+        btnProses.addEventListener('click', () => {
+            const pesan = inputPesan.value;
+            const sandi = inputSandi.value;
+            const modeAktif = document.querySelector('input[name="mode"]:checked').value;
+            
+            // Jalankan fungsi
+            const hasil = prosesKriptografi(pesan, sandi, modeAktif);
+            
+            // Tampilkan hasil di UI
+            outputHasil.value = hasil;
+
+            // Animasi kecil pada tombol
+            btnProses.innerHTML = "Berhasil Diproses!";
+            btnProses.classList.add('bg-green-600');
+            btnProses.classList.remove('bg-brand-600');
+            
+            setTimeout(() => {
+                const modeText = modeAktif === 'enkripsi' ? 'Enkripsi' : 'Dekripsi';
+                btnProses.innerHTML = `${iconProses} <span>Jalankan ${modeText}</span>`;
+                btnProses.classList.remove('bg-green-600');
+                btnProses.classList.add('bg-brand-600');
+            }, 1500);
+        });
+
+        // Fitur tambahan: Salin ke Clipboard
+        btnCopy.addEventListener('click', () => {
+            if(outputHasil.value && !outputHasil.value.startsWith("Error")) {
+                outputHasil.select();
+                document.execCommand('copy');
+                
+                // Feedback visual sederhana
+                const originalIcon = btnCopy.innerHTML;
+                btnCopy.innerHTML = `<svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
+                setTimeout(() => {
+                    btnCopy.innerHTML = originalIcon;
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
